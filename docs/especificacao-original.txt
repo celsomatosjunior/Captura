@@ -1,0 +1,323 @@
+PROJETO: CAPTURE PRO — CAPTURADOR UNIVERSAL DE IMAGENS PARA WINDOWS
+
+Você é um engenheiro de software sênior especializado em aplicações Windows, captura de vídeo, dispositivos USB, DirectShow, Media Foundation e processamento de imagens.
+
+Sua tarefa é desenvolver do zero e entregar um aplicativo Windows completo, funcional, compilado e instalável, chamado CAPTURE PRO.
+
+Não quero apenas um exemplo, protótipo, código incompleto ou interface demonstrativa. Quero o programa funcionando, com todos os botões implementados e pronto para utilização.
+
+1. OBJETIVO
+
+Criar um programa simples, rápido e estável que capture imagens estáticas provenientes de placas de captura de vídeo conectadas ao computador.
+
+O programa será utilizado principalmente com equipamentos médicos de endoscopia, mas deverá funcionar com outras fontes de vídeo compatíveis.
+
+Deve funcionar inteiramente offline, sem login, assinatura, servidor ou navegador.
+
+2. COMPATIBILIDADE COM DISPOSITIVOS
+
+Implementar reconhecimento automático das seguintes fontes:
+
+- Placas de captura USB 2.0.
+- Placas de captura USB 3.0.
+- Dispositivos USB Video Class (UVC).
+- Placas internas PCI e PCI Express.
+- Placas antigas com drivers DirectShow/WDM.
+- Fontes HDMI, RCA/composite, S-Video e outras entradas disponibilizadas pelos drivers.
+
+Utilizar Media Foundation e DirectShow, conforme a compatibilidade de cada dispositivo.
+
+Não presumir que todos os dispositivos suportam todos os formatos.
+
+O programa deverá listar os dispositivos disponíveis e permitir a seleção manual.
+
+Disponibilizar botão "Atualizar dispositivos" para detectar equipamentos conectados posteriormente.
+
+Permitir selecionar entradas físicas diferentes quando o driver oferecer essa funcionalidade.
+
+Caso um dispositivo dependa de driver proprietário, informar claramente essa necessidade.
+
+3. INTERFACE GRÁFICA
+
+Criar interface moderna, profissional e intuitiva para Windows 10 e Windows 11.
+
+Idioma: português brasileiro.
+
+A janela principal terá:
+
+Parte superior:
+
+- Seleção da placa de captura.
+- Seleção da entrada de vídeo, quando disponível.
+- Seleção da resolução de entrada.
+- Seleção da taxa de quadros, quando disponível.
+- Botão para atualizar dispositivos.
+
+Parte central:
+
+- Pré-visualização em tempo real.
+- Imagem com proporção original.
+- Área de captura selecionável.
+- Indicação visual de conexão e sinal.
+
+Parte inferior:
+
+- Botão grande "SALVAR IMAGEM".
+- Botão "DEFINIR ÁREA".
+- Botão "CAPTURAR TELA INTEIRA".
+- Botão "ESCOLHER PASTA".
+- Botão "RESTAURAR AJUSTES".
+
+Painel lateral:
+
+- Brilho.
+- Contraste.
+- Saturação.
+- Nitidez.
+- Resolução da imagem salva.
+- Formato da imagem.
+- Nome do arquivo.
+
+Todos os botões devem funcionar de verdade.
+
+4. RECURSO PRINCIPAL: DEFINIR ÁREA DE CAPTURA
+
+Este é um recurso obrigatório e prioritário.
+
+Criar um sistema de seleção de área semelhante ao encontrado em programas profissionais de captura de vídeo.
+
+Ao clicar em "DEFINIR ÁREA":
+
+1. Mostrar uma moldura retangular sobre a imagem de pré-visualização.
+2. Permitir movimentar essa moldura com o mouse.
+3. Permitir redimensionar pelos quatro cantos e pelas bordas.
+4. Manter a moldura visível permanentemente enquanto a captura estiver ativa.
+5. Permitir selecionar qualquer região da imagem.
+6. Escurecer discretamente a região externa, sem esconder o vídeo.
+7. Salvar exclusivamente os pixels dentro do retângulo selecionado.
+8. Manter a seleção para todas as próximas capturas.
+9. Memorizar a posição e o tamanho da área mesmo depois de fechar o programa.
+
+A moldura é apenas uma referência visual e NÃO deverá aparecer nas fotografias salvas.
+
+O recorte deverá ser calculado nas coordenadas reais do vídeo, independentemente do tamanho da janela de prévia.
+
+Adicionar opção para capturar a imagem completa, removendo o recorte.
+
+A seleção deve continuar correta mesmo que o usuário redimensione a janela do aplicativo.
+
+5. CAPTURA DE IMAGEM
+
+O programa deverá capturar um quadro real do vídeo, na resolução efetiva disponibilizada pelo dispositivo.
+
+Não utilizar screenshot da janela do Windows como método principal.
+
+Ao clicar em "SALVAR IMAGEM":
+
+- Capturar o quadro atual.
+- Aplicar o recorte selecionado.
+- Aplicar os ajustes de imagem habilitados.
+- Salvar na pasta escolhida.
+- Continuar exibindo a prévia normalmente.
+- Não interromper nem reiniciar o vídeo.
+- Confirmar discretamente que a imagem foi salva.
+
+A captura deverá ser rápida, evitando travamentos.
+
+6. AJUSTES DE IMAGEM
+
+Implementar controles deslizantes independentes:
+
+- Brilho.
+- Contraste.
+- Saturação.
+- Nitidez.
+
+Os ajustes devem aparecer em tempo real na prévia e ser aplicados também à imagem salva.
+
+Usar processamento digital eficiente, preferencialmente OpenCV.
+
+Adicionar botão "RESTAURAR" para retornar aos valores neutros.
+
+Evitar filtros automáticos exagerados.
+
+Priorizar fidelidade da imagem original, especialmente em exames médicos.
+
+A imagem original não deverá ser modificada pelo ajuste do monitor.
+
+7. RESOLUÇÃO E FORMATOS
+
+Permitir selecionar separadamente:
+
+Resolução de entrada:
+Listar somente os modos realmente suportados pela placa de captura.
+
+Resolução da fotografia:
+
+- Original.
+- 640 × 480.
+- 800 × 600.
+- 1024 × 768.
+- 1280 × 720.
+- 1920 × 1080.
+- Personalizada.
+
+Preservar a proporção original por padrão.
+
+Não deformar ou esticar a imagem.
+
+Informar quando uma resolução de saída for superior à resolução nativa e exigir interpolação.
+
+Formatos de salvamento:
+
+- PNG, sem perda.
+- JPEG, com controle de qualidade.
+- BMP.
+
+Definir PNG como formato padrão.
+
+8. PASTA E NOMES DOS ARQUIVOS
+
+Permitir escolher livremente a pasta de destino.
+
+Exemplo:
+
+C:\Capturas\Endoscopia
+
+Salvar automaticamente usando nomes sequenciais:
+
+CAPTURA_2026-10-15_001.png
+
+CAPTURA_2026-10-15_002.png
+
+CAPTURA_2026-10-15_003.png
+
+Não sobrescrever imagens existentes.
+
+Permitir personalizar o prefixo.
+
+Memorizar a pasta selecionada ao fechar o programa.
+
+9. RECURSOS ADICIONAIS
+
+Implementar:
+
+- Atalho F8 para salvar imagem.
+- Atalho F11 para tela cheia.
+- Atalho ESC para sair da tela cheia.
+- Prévia da última imagem salva.
+- Contador de fotografias.
+- Botão para abrir a pasta de destino.
+- Reconexão automática quando a placa for desconectada e reconectada.
+- Mensagens claras quando não houver sinal de vídeo.
+- Memorização da última placa utilizada.
+- Memorização dos ajustes e do recorte por dispositivo.
+- Opção para iniciar com Windows, desativada por padrão.
+
+Os atalhos devem funcionar quando o aplicativo estiver em foco.
+
+10. TECNOLOGIA
+
+Preferência de implementação:
+
+- Linguagem C#.
+- Plataforma .NET 8 ou superior, versão estável.
+- Interface WPF.
+- Captura via Media Foundation e DirectShow.
+- Processamento de imagem com OpenCV, usando integração compatível com C#.
+- Arquitetura modular, com separação entre captura, processamento, interface e salvamento.
+
+Pode utilizar bibliotecas consolidadas, desde que sejam compatíveis com distribuição Windows e suas licenças sejam respeitadas.
+
+Não utilizar tecnologias que exijam navegador ou conexão com internet para executar o programa.
+
+11. ESTABILIDADE E DESEMPENHO
+
+O aplicativo deverá:
+
+- Exibir vídeo continuamente.
+- Manter a interface responsiva.
+- Evitar consumo desnecessário de CPU.
+- Liberar corretamente dispositivos e recursos ao fechar.
+- Tratar falhas de drivers.
+- Evitar conflitos ao alternar entre dispositivos.
+- Não criar arquivos corrompidos.
+- Suportar diferentes resoluções e proporções de vídeo.
+- Manter fidelidade de cores e respeitar os formatos de pixel disponibilizados pelo dispositivo.
+
+Usar processamento assíncrono e filas de captura quando necessário.
+
+12. COMPILAÇÃO E ENTREGA
+
+Quero receber:
+
+1. Código-fonte completo e organizado.
+2. Projeto que abra no Visual Studio.
+3. Executável Windows x64.
+4. Instalador Windows.
+5. Todas as dependências necessárias.
+6. Instruções simples de instalação.
+7. Arquivo README.
+8. Aplicativo funcionando sem necessidade de instalar ferramentas de programação no computador final.
+
+Gerar uma versão de distribuição que inclua o runtime necessário, quando permitido pela tecnologia utilizada.
+
+13. TESTES OBRIGATÓRIOS
+
+Antes de declarar o programa concluído, testar:
+
+- Reconhecimento de dispositivos.
+- Abertura e fechamento do vídeo.
+- Troca de fonte.
+- Seleção de resolução.
+- Recorte persistente.
+- Captura em PNG, JPEG e BMP.
+- Ajustes de imagem.
+- Escolha de pasta.
+- Salvamento sequencial.
+- Reconexão de dispositivo.
+- Tela cheia.
+- Funcionamento de todos os botões.
+- Persistência das configurações.
+
+Criar testes automatizados onde for possível.
+
+Quando não houver placa de captura física disponível no ambiente de desenvolvimento, utilizar vídeo de teste para validar a interface e o processamento, mas identificar claramente quais testes dependem de hardware real.
+
+Não afirmar que dispositivos físicos foram testados sem realmente realizar esses testes.
+
+14. REGRAS DE EXECUÇÃO
+
+Não parar após criar a interface.
+
+Não entregar botões fictícios.
+
+Não deixar funções principais como TODO.
+
+Não substituir captura de hardware por imagens simuladas na versão final.
+
+Não declarar o programa pronto se houver erros de compilação.
+
+Trabalhar por etapas:
+
+Etapa 1 — Criar estrutura do projeto.
+
+Etapa 2 — Implementar descoberta e captura de dispositivos.
+
+Etapa 3 — Implementar a prévia ao vivo.
+
+Etapa 4 — Implementar seleção persistente da área.
+
+Etapa 5 — Implementar ajustes e salvamento.
+
+Etapa 6 — Finalizar interface e atalhos.
+
+Etapa 7 — Compilar e corrigir erros.
+
+Etapa 8 — Gerar executável e instalador.
+
+Etapa 9 — Executar testes e apresentar os resultados.
+
+OBJETIVO FINAL: entregar um capturador universal de imagens para Windows, com funcionamento simples, qualidade de imagem fiel, recorte permanente e salvamento com um único clique.
+
+Comece agora pela implementação real do projeto. Não se limite a explicar como ele poderia ser desenvolvido.

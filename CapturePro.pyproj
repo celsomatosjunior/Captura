@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8E6B1D3C-5A43-4C2B-9C4E-2F1B7A9D0C11}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>src\main.py</StartupFile>
+    <SearchPath>src</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>CapturePro</Name>
+    <RootNamespace>CapturePro</RootNamespace>
+    <TestFramework>pytest</TestFramework>
+    <UnitTestPattern>test_*.py</UnitTestPattern>
+    <UnitTestRootDirectory>tests</UnitTestRootDirectory>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="build\assemble.py" />
+    <Compile Include="build\make_icon.py" />
+    <Compile Include="src\capturepro\__init__.py" />
+    <Compile Include="src\capturepro\__main__.py" />
+    <Compile Include="src\capturepro\app.py" />
+    <Compile Include="src\capturepro\autostart.py" />
+    <Compile Include="src\capturepro\capture.py" />
+    <Compile Include="src\capturepro\devices.py" />
+    <Compile Include="src\capturepro\dshow.py" />
+    <Compile Include="src\capturepro\processing.py" />
+    <Compile Include="src\capturepro\settings.py" />
+    <Compile Include="src\capturepro\storage.py" />
+    <Compile Include="src\capturepro\ui\__init__.py" />
+    <Compile Include="src\capturepro\ui\main_window.py" />
+    <Compile Include="src\capturepro\ui\theme.py" />
+    <Compile Include="src\capturepro\ui\video_view.py" />
+    <Compile Include="src\main.py" />
+    <Compile Include="tests\conftest.py" />
+    <Compile Include="tests\test_core.py" />
+    <Compile Include="tests\test_ui.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
+    <Content Include="requirements.txt" />
+    <Content Include="build\installer.nsi" />
+    <Content Include="build\installer_part2.nsi" />
+    <Content Include="build\build.sh" />
+    <Content Include="build\launcher\launcher.c" />
+    <Content Include="build\requirements-windows.txt" />
+    <Content Include="THIRD_PARTY_LICENSES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+    <Folder Include="src\" />
+    <Folder Include="src\capturepro\" />
+    <Folder Include="src\capturepro\ui\" />
+    <Folder Include="tests\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
