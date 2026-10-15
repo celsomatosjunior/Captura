@@ -92,7 +92,7 @@ Configurações: `%APPDATA%\CapturePro\config.json` (apagar este arquivo restaur
 
 ## Download
 
-Os instaladores estão em **Releases** (`v1.0.0`): baixe os dois arquivos `.exe`.
+Os instaladores estão na pasta [`instaladores/v1.0.0`](instaladores/v1.0.0): baixe os dois arquivos `.exe`.
 
 Como esta versão foi construída, passo a passo: [docs/COMO-FOI-FEITO.md](docs/COMO-FOI-FEITO.md).
 Especificação original: [docs/especificacao-original.txt](docs/especificacao-original.txt).
