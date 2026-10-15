@@ -80,14 +80,16 @@ Tudo é reproduzível com `./build/build.sh` (Ubuntu 24.04 + `nsis` + `gcc-mingw
   iniciando o Python isolado, mensagem de erro de inicialização, opção *Iniciar com o
   Windows*, falha do DirectShow tratada sem fechar o programa.
 
-**Não testado (exige Windows real e placa física):** captura com placas USB/UVC/PCIe
-reais, entradas HDMI/RCA/S-Video, crossbar e modos de drivers reais, desconexão física,
-Media Foundation, desempenho com 1080p real e a interface rodando no Windows (o Wine
-não tem componentes que o Qt e o NumPy usam).
+**Teste de campo em Windows real (realizado e informado pelo autor, Dr. Celso Matos
+Junior, em 15/10/2026):** testado com placa de captura **USB 3.0 com entrada HDMI**
+para captura de **ultrassonografia em equipamento de última geração V7** —
+**100% funcional**.
+
+**Ainda não testado:** outros tipos de placa (USB 2.0, PCI/PCIe, DirectShow antigas),
+entradas RCA/S-Video, troca de entrada pelo crossbar e Media Foundation.
 
 ## 5. Pendências para a próxima versão
 
-- Primeiro teste com a placa de endoscopia do consultório (enviar
-  `%APPDATA%\CapturePro\capturepro.log` em caso de problema).
+- Em caso de problema com outras placas, enviar `%APPDATA%\CapturePro\capturepro.log`.
 - Assinatura digital do instalador (evita o aviso do SmartScreen).
 - Opcional: reescrever em C#/.NET 8/WPF se o ambiente tiver acesso ao SDK da Microsoft.

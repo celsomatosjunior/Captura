@@ -7,3 +7,5 @@
 3. Se aparecer "O Windows protegeu o computador", clique em *Mais informações → Executar assim mesmo*.
 
 Para conferir os arquivos baixados, compare com `SHA256SUMS.txt`.
+
+Testado em campo com placa USB 3.0 HDMI em ultrassom V7: 100% funcional (relato do autor, 15/10/2026).

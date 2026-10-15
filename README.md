@@ -3,7 +3,7 @@
 ![Tela principal](docs/tela-principal.png)
 
 Capturador de imagens estáticas para placas de captura de vídeo no Windows 10 e 11
-(endoscopia e outras fontes de vídeo). Funciona 100% offline: sem login, sem
+(ultrassonografia, endoscopia e outras fontes de vídeo). Funciona 100% offline: sem login, sem
 internet, sem navegador.
 
 ## Instalação (computador do consultório)
@@ -165,9 +165,10 @@ o Python embutido isolado; opção "Iniciar com o Windows" (registro);
 tratamento de falha do DirectShow sem derrubar o programa. Todas as DLLs
 necessárias foram conferidas pelos cabeçalhos PE.
 
-**NÃO testado (depende de hardware/Windows real):** captura com placas físicas
-(USB 2.0/3.0, UVC, PCI/PCIe, DirectShow antigas), entradas HDMI/RCA/S-Video
-reais, modos e crossbar de drivers reais, desconexão física do cabo USB,
-Media Foundation, desempenho de CPU com vídeo 1080p real, e a interface rodando
-no Windows (o Wine não possui partes do Windows necessárias para Qt/NumPy).
-Recomenda-se um primeiro teste com a placa do consultório antes do uso clínico.
+**Teste de campo em Windows real (realizado e informado pelo autor, Dr. Celso Matos
+Junior, em 15/10/2026):** testado com placa de captura **USB 3.0 com entrada HDMI**
+para captura de **ultrassonografia em equipamento de última geração V7** —
+**100% funcional**.
+
+**Ainda não testado:** outros tipos de placa (USB 2.0, PCI/PCIe, DirectShow antigas),
+entradas RCA/S-Video, troca de entrada pelo crossbar e Media Foundation.
