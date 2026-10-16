@@ -1,4 +1,5 @@
 ; Instalador do Capture Pro (NSIS 3, Modern UI 2)
+; v2.0: instalador ÚNICO (monolítico) — contém todos os componentes, inclusive o OpenCV.
 Unicode true
 SetCompressor /SOLID lzma
 SetCompressorDictSize 64
@@ -9,7 +10,7 @@ RequestExecutionLevel admin
 !define APPEXE "CapturePro.exe"
 !define COMPANY "Capture Pro"
 !ifndef VERSION
-  !define VERSION "1.0.0"
+  !define VERSION "2.0.0"
 !endif
 !ifndef DISTDIR
   !define DISTDIR "..\dist\CapturePro"
@@ -17,7 +18,6 @@ RequestExecutionLevel admin
 !ifndef OUTFILE
   !define OUTFILE "CapturePro-Setup-${VERSION}.exe"
 !endif
-!define PART2 "CapturePro-Setup-${VERSION}-parte2.exe"
 !define UNINSTKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\CapturePro"
 
 Name "${APPNAME}"
@@ -64,15 +64,18 @@ Function .onInit
     Abort
   ${EndIf}
   SetRegView 64
-  ; o instalador é dividido em dois arquivos (limite de tamanho de download)
-  IfFileExists "$EXEDIR\${PART2}" part2ok
-    MessageBox MB_ICONEXCLAMATION|MB_OK "Falta o arquivo ${PART2}.$\n$\nBaixe os DOIS arquivos do Capture Pro para a mesma pasta e execute novamente este instalador." /SD IDOK
-    Abort
-  part2ok:
 FunctionEnd
 
 Section "Capture Pro (obrigatório)" SecMain
   SectionIn RO
+  ; cópia de segurança das configurações do usuário antes de atualizar
+  ; (o formato do arquivo não muda na 2.0; nada é migrado nem apagado)
+  SetShellVarContext current
+  IfFileExists "$APPDATA\CapturePro\config.json" 0 nocfg
+    IfFileExists "$APPDATA\CapturePro\config.backup-antes-v${VERSION}.json" nocfg
+      CopyFiles /SILENT "$APPDATA\CapturePro\config.json" "$APPDATA\CapturePro\config.backup-antes-v${VERSION}.json"
+      DetailPrint "Configurações preservadas (cópia de segurança criada)."
+  nocfg:
   SetShellVarContext all
   ; fecha versão anterior em execução, se houver
   nsExec::Exec 'taskkill /IM ${APPEXE} /F'
@@ -81,14 +84,7 @@ Section "Capture Pro (obrigatório)" SecMain
   RMDir /r "$INSTDIR\DLLs"
   RMDir /r "$INSTDIR\app"
   SetOutPath "$INSTDIR"
-  File /r /x cv2 "${DISTDIR}\*.*"
-  ; segunda parte: componente de captura de vídeo (OpenCV)
-  DetailPrint "Instalando o componente de captura de vídeo..."
-  ExecWait '"$EXEDIR\${PART2}" /S /D=$INSTDIR' $0
-  IfFileExists "$INSTDIR\Lib\site-packages\cv2\cv2.pyd" cv2ok
-    MessageBox MB_ICONSTOP "Não foi possível instalar o componente de captura (código $0).$\nVerifique se o arquivo ${PART2} está completo e execute novamente." /SD IDOK
-    Abort
-  cv2ok:
+  File /r "${DISTDIR}\*.*"
   WriteUninstaller "$INSTDIR\Desinstalar.exe"
 
   CreateDirectory "$SMPROGRAMS\Capture Pro"

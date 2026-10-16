@@ -38,6 +38,15 @@ QPushButton#primary {
 QPushButton#primary:hover { background: #2ecc71; }
 QPushButton#primary:pressed { background: #1e8a4c; }
 QPushButton#primary:disabled { background: #22412f; border-color: #2a5a3e; color: #8fb5a0; }
+QFrame#areaoptions { background: rgba(15, 17, 21, 210); border: 1px solid #2e7d55; border-radius: 8px; }
+QPushButton#context { font-size: 9pt; padding: 4px 12px; border-radius: 6px;
+  background: #1f2a24; border-color: #2e7d55; color: #d5f5e3; }
+QPushButton#context:hover { background: #24382d; border-color: #2ecc71; }
+QToolButton#about { background: transparent; border: 1px solid #46505f; border-radius: 11px;
+  color: #8b95a3; font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 700; font-size: 10pt; }
+QToolButton#about:hover { color: #ffffff; border-color: #2ecc71; }
+QDialog#aboutdlg { background: #1b1f26; }
+QLabel#abouttitle { font-size: 16pt; font-weight: 800; color: #ffffff; }
 QPushButton#link { background: transparent; border: none; color: #2ecc71; padding: 4px; text-align: left; }
 QPushButton#link:hover { color: #58d68d; text-decoration: underline; }
 QSlider::groove:horizontal { height: 4px; background: #333a46; border-radius: 2px; }

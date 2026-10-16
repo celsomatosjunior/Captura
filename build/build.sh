@@ -36,10 +36,8 @@ cp assets/icon.png src/capturepro/resources/icon.png
 echo "== 4/6 Montagem da pasta do programa"
 python3 build/assemble.py "$WORK/winpy/python" "$WORK/wheels" build/launcher/CapturePro.exe "$DIST/CapturePro"
 
-echo "== 5/6 Instalador"
+echo "== 5/6 Instalador único"
 ( cd build
-  makensis -V2 -DVERSION="$VERSION" -DDISTDIR="$DIST/CapturePro" \
-    -DOUTFILE="$DIST/CapturePro-Setup-$VERSION-parte2.exe" installer_part2.nsi
   makensis -V2 -DVERSION="$VERSION" -DDISTDIR="$DIST/CapturePro" \
     -DOUTFILE="$DIST/CapturePro-Setup-$VERSION.exe" installer.nsi )
 

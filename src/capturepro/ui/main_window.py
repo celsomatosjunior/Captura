@@ -7,7 +7,7 @@ import os
 
 from PySide6.QtCore import QObject, QRunnable, QSize, Qt, QThreadPool, QTimer, QUrl, Signal
 from PySide6.QtGui import QCloseEvent, QDesktopServices, QImage, QKeySequence, QPixmap, QShortcut
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QFrame, QGridLayout,
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QFrame, QGridLayout, QToolButton,
                                QHBoxLayout, QLabel, QLineEdit, QMainWindow, QMessageBox, QPushButton,
                                QScrollArea, QSizePolicy, QSlider, QSpinBox, QVBoxLayout, QWidget)
 
@@ -15,6 +15,7 @@ from .. import APP_DISPLAY_NAME, __version__, autostart, devices, processing, st
 from ..capture import BACKENDS, ST_LIVE, CaptureWorker, SourceSpec
 from ..devices import DeviceCaps, DeviceInfo, VideoMode
 from ..settings import IMAGE_FORMATS, NEUTRAL_ADJUSTMENTS, OUTPUT_RESOLUTIONS, Settings
+from .about_dialog import AboutDialog
 from .video_view import VideoView
 
 log = logging.getLogger(__name__)
@@ -148,6 +149,14 @@ class MainWindow(QMainWindow):
             tl.addWidget(w, 1, i)
         tl.addWidget(self.bt_refresh, 1, len(cols) + 1)
         tl.addWidget(self.bt_driver, 1, len(cols) + 2)
+        # (2.0) ícone "Sobre": ocupa a célula vazia acima de "Propriedades do driver",
+        # sem deslocar nenhum elemento existente
+        self.bt_about = QToolButton(objectName="about")
+        self.bt_about.setText("i")
+        self.bt_about.setFixedSize(22, 22)
+        self.bt_about.setToolTip("Sobre o Capture Pro")
+        self.bt_about.setCursor(Qt.CursorShape.PointingHandCursor)
+        tl.addWidget(self.bt_about, 0, len(cols) + 2, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
         tl.setColumnStretch(0, 1)
         outer.addWidget(self.topbar)
 
@@ -157,6 +166,23 @@ class MainWindow(QMainWindow):
         middle.setSpacing(0)
         self.view = VideoView()
         middle.addWidget(self.view, 1)
+        # (2.0) opções contextuais do modo DEFINIR ÁREA: pequeno painel flutuante no canto
+        # inferior esquerdo da prévia, logo acima do botão DEFINIR ÁREA. Fica fora dos
+        # layouts, portanto não desloca nenhum botão nem altera a área de visualização.
+        self.area_options = QFrame(self.view, objectName="areaoptions")
+        ao = QHBoxLayout(self.area_options)
+        ao.setContentsMargins(6, 6, 6, 6)
+        ao.setSpacing(6)
+        self.bt_area_save = QPushButton("SALVAR ÁREA", objectName="context")
+        self.bt_area_save.setToolTip("Confirma e grava a área selecionada (igual a CONCLUIR ÁREA).")
+        self.bt_area_remove = QPushButton("REMOVER SELEÇÃO", objectName="context")
+        self.bt_area_remove.setToolTip("Apaga a área definida e volta a salvar a imagem inteira.")
+        for b in (self.bt_area_save, self.bt_area_remove):
+            b.setFixedHeight(30)
+            ao.addWidget(b)
+        self.area_options.adjustSize()
+        self.area_options.hide()
+        self.view.installEventFilter(self)
         self.side = self._build_side_panel()
         middle.addWidget(self.side)
         outer.addLayout(middle, 1)
@@ -200,6 +226,9 @@ class MainWindow(QMainWindow):
         self.bt_driver.clicked.connect(self._open_driver_settings)
         self.bt_area.toggled.connect(self._toggle_area)
         self.bt_full.clicked.connect(self.full_image)
+        self.bt_area_save.clicked.connect(self.save_area)
+        self.bt_area_remove.clicked.connect(self.remove_selection)
+        self.bt_about.clicked.connect(self.show_about)
         self.bt_folder.clicked.connect(self.choose_folder)
         self.bt_open.clicked.connect(self.open_folder)
         self.bt_reset.clicked.connect(self.reset_adjustments)
@@ -743,7 +772,39 @@ class MainWindow(QMainWindow):
         self.bt_area.setText("CONCLUIR ÁREA" if on else "DEFINIR ÁREA")
         if on:
             self.view.show_toast("Arraste a moldura; use cantos e bordas para redimensionar", ok=True, ms=3500)
+        # (2.0) opções contextuais só existem enquanto a área está sendo definida
+        self.area_options.setVisible(on)
+        if on:
+            self._place_area_options()
+            self.area_options.raise_()
         self._update_output_info()
+
+    def _place_area_options(self) -> None:
+        self.area_options.adjustSize()
+        self.area_options.move(12, self.view.height() - self.area_options.height() - 12)
+
+    def eventFilter(self, obj, ev):
+        if obj is self.view and ev.type() == ev.Type.Resize and hasattr(self, "area_options"):
+            self._place_area_options()
+        return super().eventFilter(obj, ev)
+
+    # (2.0) SALVAR ÁREA = a mesma ação de CONCLUIR ÁREA + gravação imediata
+    def save_area(self) -> None:
+        self.bt_area.setChecked(False)          # ação existente de CONCLUIR ÁREA
+        self._persist_timer.stop()
+        self._persist_now()                     # mecanismo de persistência existente
+        if self.view.crop() is not None:
+            self.view.show_toast("Área salva")
+
+    # (2.0) REMOVER SELEÇÃO = a mesma lógica de CAPTURAR TELA INTEIRA + gravação imediata
+    def remove_selection(self) -> None:
+        self.full_image()                       # ação existente de CAPTURAR TELA INTEIRA
+        self._persist_timer.stop()
+        self._persist_now()
+        self.view.show_toast("Seleção removida: será salva a imagem inteira")
+
+    def show_about(self) -> None:
+        AboutDialog(self).exec()
 
     def full_image(self) -> None:
         self.bt_area.setChecked(False)

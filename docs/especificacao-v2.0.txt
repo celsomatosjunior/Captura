@@ -1,0 +1,375 @@
+CAPTURE PRO 2.0 — ATUALIZAÇÃO CONSERVADORA DA VERSÃO 1.0
+
+INSTRUÇÃO PRINCIPAL — LEIA ANTES DE PROGRAMAR
+
+Você já desenvolveu o Capture Pro 1.0, que está publicado e preservado no repositório:
+
+https://github.com/celsomatosjunior/Captura
+
+A versão 1.0 está instalada, foi testada em um computador Windows real com placa de captura USB 3.0 e está funcionando perfeitamente.
+
+NÃO QUERO UM NOVO PROGRAMA. NÃO QUERO REDESENHO. NÃO QUERO REFATORAÇÃO DESNECESSÁRIA.
+
+Quero exclusivamente uma atualização incremental para a versão Capture Pro 2.0, mantendo 100% do funcionamento, aparência e organização da versão 1.0, com apenas três modificações específicas descritas abaixo.
+
+---
+
+ETAPA 1 — PRESERVAÇÃO ABSOLUTA DA VERSÃO 1.0
+
+Antes de qualquer alteração:
+
+1. Leia integralmente o README e examine os arquivos do repositório.
+2. Identifique os arquivos responsáveis pela interface, seleção de área, persistência das configurações e instalação.
+3. Preserve a versão 1.0 criando uma tag Git "v1.0.0", se ainda não existir, apontando para o commit correto da versão original.
+4. Crie uma branch de desenvolvimento "feature/v2.0.0".
+5. Não sobrescreva nem exclua os instaladores da pasta "instaladores/v1.0.0".
+6. Preserve o código-fonte histórico, os testes e os documentos da versão anterior.
+7. Mantenha a versão 1.0 disponível para download e reinstalação.
+
+A versão 2.0 deverá ser construída a partir da 1.0, sem alterar retroativamente a versão preservada.
+
+ETAPA 2 — PRIMEIRA ALTERAÇÃO: MENU DE SELEÇÃO DE ÁREA
+
+ESTA É A PRINCIPAL MODIFICAÇÃO DO PROJETO.
+
+Atualmente existe um botão na parte inferior chamado:
+
+DEFINIR ÁREA
+
+Esse botão já funciona perfeitamente.
+
+Ao clicar, aparece a moldura sobre a imagem, permitindo arrastar, mover e redimensionar o retângulo.
+
+O funcionamento atual está aprovado.
+
+NÃO ALTERAR:
+
+- O botão DEFINIR ÁREA.
+- Seu tamanho.
+- Sua posição.
+- Seu formato.
+- Sua cor.
+- Sua ação original.
+- O comportamento de abertura da seleção.
+- A aparência da moldura.
+- A cor e o estilo das linhas.
+- Os pontos de redimensionamento.
+- A movimentação com o mouse.
+- O cálculo do recorte.
+- A prévia ao vivo.
+- A forma como a imagem é salva.
+
+O QUE DEVE SER ACRESCENTADO
+
+Quando o usuário clicar no botão existente DEFINIR ÁREA, o sistema continuará entrando no modo de seleção exatamente como já acontece.
+
+A única novidade será apresentar duas pequenas opções contextuais:
+
+SALVAR ÁREA
+
+REMOVER SELEÇÃO
+
+Essas opções devem aparecer exclusivamente enquanto o usuário estiver no modo de definição de área.
+
+Não criar uma nova janela grande.
+
+Não abrir outra tela.
+
+Não modificar o botão original.
+
+Não adicionar barras permanentes à interface.
+
+Utilizar dois pequenos botões discretos, preferencialmente na mesma região inferior onde já aparecem os controles da seleção.
+
+FUNCIONAMENTO DA OPÇÃO SALVAR ÁREA
+
+Quando o usuário clicar em SALVAR ÁREA:
+
+1. Confirmar o retângulo que ele acabou de selecionar.
+2. Gravar suas coordenadas usando o mecanismo de persistência já existente.
+3. Encerrar o modo de edição.
+4. Ocultar as duas opções contextuais.
+5. Retornar à interface normal.
+6. Manter a área selecionada visualmente marcada, exatamente como já acontece.
+7. Continuar capturando somente o interior da área escolhida.
+
+A área deverá permanecer gravada mesmo depois de fechar e abrir o programa.
+
+IMPORTANTE: o botão SALVAR ÁREA deverá reutilizar a ação já existente do botão CONCLUIR ÁREA. Não criar outro sistema de salvamento de coordenadas.
+
+FUNCIONAMENTO DA OPÇÃO REMOVER SELEÇÃO
+
+Quando o usuário clicar em REMOVER SELEÇÃO:
+
+1. Excluir a área de recorte atualmente definida para o dispositivo.
+2. Remover a moldura da prévia.
+3. Voltar automaticamente ao modo de captura integral do quadro.
+4. Encerrar o modo de edição.
+5. Ocultar as duas opções contextuais.
+6. Retornar à interface normal.
+7. Persistir a remoção para que a seleção antiga não reapareça ao reiniciar.
+
+IMPORTANTE: reutilizar a lógica já existente do botão CAPTURAR TELA INTEIRA, sem reimplementar o mecanismo de captura.
+
+COMPORTAMENTO VISUAL OBRIGATÓRIO
+
+Estado normal:
+
+O programa permanece visualmente igual à versão 1.0. As duas opções adicionais ficam ocultas.
+
+Ao clicar em DEFINIR ÁREA:
+
+A seleção abre exatamente como hoje, com a mesma moldura e os mesmos controles de movimentação e redimensionamento.
+
+Somente nesse momento aparecem:
+
+- SALVAR ÁREA
+- REMOVER SELEÇÃO
+
+Ao clicar em qualquer uma dessas opções, elas desaparecem e o programa volta à aparência normal.
+
+Não alterar a disposição dos outros botões.
+
+Não mudar o tamanho da janela.
+
+Não alterar a área de visualização.
+
+Não alterar o painel lateral.
+
+Não substituir os controles existentes por novos componentes.
+
+Se houver um botão CONCLUIR ÁREA durante a edição, adaptar apenas esse controle contextual para SALVAR ÁREA e acrescentar REMOVER SELEÇÃO ao lado, sem alterar os demais controles.
+
+O botão CAPTURAR TELA INTEIRA já existente deverá continuar funcionando como antes. Não o remover.
+
+ATENÇÃO
+
+A seleção de área está perfeita na versão 1.0.
+
+Não tente melhorá-la.
+
+Não altere seu algoritmo.
+
+Não altere a renderização.
+
+Não modifique as coordenadas.
+
+Não mexa nas linhas ou nas alças.
+
+A alteração solicitada é somente a inclusão das duas ações contextuais, aproveitando as funções que já existem.
+
+---
+
+ETAPA 3 — SEGUNDA ALTERAÇÃO: ÍCONE SOBRE
+
+Adicionar um ícone pequeno e discreto com a letra i, símbolo de informação, preferencialmente no canto superior direito da interface, sem deslocar os elementos existentes.
+
+O ícone deverá abrir uma pequena janela modal intitulada:
+
+Sobre o Capture Pro
+
+Conteúdo:
+
+Capture Pro 2.0
+
+Sistema de captura de imagens para Windows.
+
+Idealização e autoria: Dr. Celso Matos Junior
+
+Médico com mais de 20 anos de experiência profissional, desenvolveu o Capture Pro a partir da necessidade de uma ferramenta de captura de imagens simples, versátil e eficiente.
+
+Ao longo de sua experiência com documentação de imagens médicas, percebeu que os sistemas disponíveis nem sempre atendiam às suas necessidades.
+
+Entusiasta de tecnologia e videogames, idealizou uma solução que pudesse ser utilizada tanto na área médica quanto em outras situações de captura de vídeo e imagem.
+
+O Capture Pro nasceu da combinação entre experiência profissional, tecnologia e busca por praticidade.
+
+Versão 2.0 — 2026
+
+Adicionar somente um botão FECHAR.
+
+A janela Sobre não deverá modificar a interface principal.
+
+Não criar uma página de créditos extensa, propagandas, links obrigatórios ou funções adicionais.
+
+---
+
+ETAPA 4 — TERCEIRA ALTERAÇÃO: INSTALADOR ÚNICO
+
+A versão 1.0 foi distribuída em duas partes:
+
+- CapturePro-Setup-1.0.0.exe
+- CapturePro-Setup-1.0.0-parte2.exe
+
+Quero eliminar essa necessidade na versão 2.0.
+
+NOVO FORMATO
+
+Gerar um único arquivo:
+
+CapturePro-Setup-2.0.0.exe
+
+Esse instalador deverá conter todos os componentes necessários ao funcionamento do programa, incluindo:
+
+- Executável principal.
+- Python embutido.
+- Bibliotecas PySide6/Qt.
+- OpenCV.
+- Dependências DirectShow/Media Foundation utilizadas pelo aplicativo.
+- Bibliotecas auxiliares.
+- Recursos visuais.
+- Ícones.
+- Demais arquivos necessários.
+
+O usuário deverá baixar somente um arquivo, executar e instalar.
+
+Não poderá ser necessário baixar uma segunda parte.
+
+Não poderá ser necessário instalar Python separadamente.
+
+Não poderá ser necessário baixar bibliotecas durante a instalação.
+
+Não poderá ser necessário instalar ferramentas de desenvolvimento.
+
+Preservar o sistema de instalação NSIS já existente, adaptando-o para gerar um instalador monolítico.
+
+Se o limite de tamanho do ambiente de desenvolvimento ou da plataforma de distribuição impedir o envio de um arquivo único, procurar uma estratégia apropriada de publicação, como GitHub Releases, sem dividir o instalador para o usuário final.
+
+Não reduzir a funcionalidade do programa para diminuir o tamanho do instalador.
+
+Não remover dependências necessárias.
+
+INSTALAÇÃO E ATUALIZAÇÃO
+
+O instalador 2.0 deverá:
+
+1. Instalar todos os componentes.
+2. Criar os atalhos necessários.
+3. Permitir desinstalação.
+4. Preservar imagens já capturadas.
+5. Preservar configurações existentes da versão 1.0.
+6. Preservar a última placa utilizada.
+7. Preservar os recortes já salvos.
+8. Atualizar a instalação anterior de forma segura.
+
+Manter compatibilidade com o arquivo de configurações já existente.
+
+Não apagar configurações antigas durante a atualização.
+
+Se for necessária qualquer migração, criar backup e validar os dados antes de gravar o novo formato.
+
+---
+
+ETAPA 5 — NÃO MODIFICAR NENHUMA OUTRA FUNÇÃO
+
+Todos os recursos atuais devem permanecer exatamente como estão:
+
+- Seleção de placa USB.
+- Placas internas.
+- DirectShow.
+- Media Foundation.
+- Resolução de entrada.
+- Taxa de quadros.
+- Seleção de entrada de vídeo.
+- Propriedades do driver.
+- Prévia ao vivo.
+- Ajustes de brilho.
+- Ajustes de contraste.
+- Ajustes de saturação.
+- Ajustes de nitidez.
+- Resolução da fotografia.
+- PNG, JPEG e BMP.
+- Qualidade JPEG.
+- Prefixo dos arquivos.
+- Pasta de destino.
+- Última imagem salva.
+- Botão SALVAR IMAGEM.
+- Atalho F8.
+- Tela cheia F11.
+- Atalho ESC.
+- Reconexão automática.
+- Salvamento sequencial.
+- Persistência das configurações.
+- Aparência, fontes, cores, dimensões e organização da interface.
+
+Não adicionar funcionalidades que não foram solicitadas.
+
+Não alterar a arquitetura sem necessidade comprovada.
+
+Não substituir Python por C#.
+
+Não trocar PySide6.
+
+Não trocar OpenCV.
+
+Não criar outro sistema de captura.
+
+Não reescrever o aplicativo.
+
+---
+
+ETAPA 6 — TESTES E VALIDAÇÃO
+
+Antes de entregar a versão 2.0:
+
+1. Executar todos os testes automatizados existentes da versão 1.0.
+2. Confirmar que nenhum teste anteriormente aprovado passou a falhar.
+3. Criar testes específicos para SALVAR ÁREA.
+4. Criar testes específicos para REMOVER SELEÇÃO.
+5. Confirmar que o submenu permanece oculto fora do modo de seleção.
+6. Confirmar que a moldura continua funcionando exatamente como na versão 1.0.
+7. Confirmar que salvar área mantém o recorte depois de reiniciar.
+8. Confirmar que remover seleção retorna à captura integral.
+9. Confirmar que a remoção persiste após reiniciar.
+10. Confirmar que a janela Sobre abre e fecha corretamente.
+11. Confirmar que a instalação utiliza um único executável.
+12. Confirmar que os arquivos da versão 1.0 permanecem preservados.
+13. Confirmar que a atualização não exclui imagens ou configurações.
+
+Verificar também a integridade do instalador e seu funcionamento em ambiente Windows.
+
+Se não houver acesso a um Windows real, declarar essa limitação e não afirmar que a instalação foi validada fisicamente.
+
+---
+
+ETAPA 7 — GITHUB E ENTREGA FINAL
+
+Depois de concluir e testar:
+
+- Atualizar a versão do aplicativo para 2.0.0.
+- Atualizar o README com as três alterações.
+- Preservar o histórico e a documentação da versão 1.0.
+- Criar a pasta "instaladores/v2.0.0" quando apropriado.
+- Publicar o instalador único em uma GitHub Release "v2.0.0", preferencialmente.
+- Manter a versão 1.0 acessível.
+- Criar a tag "v2.0.0" no commit final aprovado.
+- Registrar os resultados dos testes.
+- Informar exatamente quais arquivos foram alterados.
+
+Não apagar arquivos antigos para abrir espaço.
+
+Não publicar arquivos incompletos como versão final.
+
+Não modificar a branch principal antes de concluir e validar a atualização.
+
+REGRA FINAL — PRIORIDADE MÁXIMA
+
+O CAPTURE PRO 1.0 ESTÁ PERFEITO E FUNCIONAL.
+
+Esta atualização NÃO é uma oportunidade de redesenhar ou modernizar o programa.
+
+A versão 2.0 deverá parecer exatamente o mesmo aplicativo, com:
+
+1. Duas opções contextuais ao definir a área: SALVAR ÁREA e REMOVER SELEÇÃO.
+
+2. Um pequeno ícone Sobre com informações do autor.
+
+3. Um único instalador Windows contendo todos os componentes.
+
+Todo o restante deverá permanecer inalterado.
+
+O objetivo é uma atualização mínima, conservadora, segura e totalmente compatível com a versão 1.0.
+
+Implemente as alterações, execute os testes, compile, gere o instalador e entregue a versão 2.0 completa.
+
+Não pare apenas na elaboração de um plano. Execute o desenvolvimento e apresente o resultado final, identificando qualquer etapa que dependa de validsação externa.

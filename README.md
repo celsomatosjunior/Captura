@@ -1,6 +1,13 @@
-# Capture Pro 1.0
+# Capture Pro 2.0
 
-![Tela principal](docs/tela-principal.png)
+> **Novidades da 2.0** (atualização conservadora da 1.0 — todo o resto continua igual):
+> 1. **SALVAR ÁREA** e **REMOVER SELEÇÃO** — duas opções que aparecem só enquanto a área está sendo definida.
+> 2. **Ícone "i" (Sobre)** no canto superior direito, com informações do autor.
+> 3. **Instalador único** — um só arquivo, `CapturePro-Setup-2.0.0.exe`, com todos os componentes.
+>
+> A versão 1.0 continua disponível: branch [`versao-1.0.0`](../../tree/versao-1.0.0) e pasta [`instaladores/v1.0.0`](instaladores/v1.0.0).
+
+![Tela principal](docs/tela-principal-v2.png)
 
 Capturador de imagens estáticas para placas de captura de vídeo no Windows 10 e 11
 (ultrassonografia, endoscopia e outras fontes de vídeo). Funciona 100% offline: sem login, sem
@@ -8,12 +15,15 @@ internet, sem navegador.
 
 ## Instalação (computador do consultório)
 
-1. Baixe os **dois** arquivos para a mesma pasta (por exemplo, *Downloads*):
-   `CapturePro-Setup-1.0.0.exe` e `CapturePro-Setup-1.0.0-parte2.exe`.
-   (O instalador foi dividido em duas partes por causa do limite de tamanho de download.)
-2. Execute **`CapturePro-Setup-1.0.0.exe`** e avance as telas (pede permissão de
-   administrador). A parte 2 é instalada automaticamente.
+1. Baixe **um único arquivo**: [`instaladores/v2.0.0/CapturePro-Setup-2.0.0.exe`](instaladores/v2.0.0).
+2. Execute e avance as telas (pede permissão de administrador). Tudo é instalado:
+   programa, Python embutido, Qt, OpenCV e demais componentes.
 3. Abra pelo ícone **Capture Pro** da Área de Trabalho ou do Menu Iniciar.
+
+**Atualizando da 1.0:** basta executar o instalador 2.0 — ele fecha o programa, substitui
+os arquivos e mantém imagens, pasta, prefixo, última placa, ajustes e áreas salvas. Antes,
+cria uma cópia de segurança das configurações em
+`%APPDATA%\CapturePro\config.backup-antes-v2.0.0.json` (o formato não muda; nada é migrado).
 
 Se o Windows mostrar "O Windows protegeu o computador" (SmartScreen), clique em
 *Mais informações → Executar assim mesmo*: o instalador não tem assinatura digital paga.
@@ -22,7 +32,7 @@ Não é preciso instalar Python, .NET nem nenhuma outra ferramenta: tudo vem den
 do instalador. Para remover: *Configurações → Aplicativos → Capture Pro → Desinstalar*.
 As fotos e as configurações **não** são apagadas na desinstalação.
 
-**Versão portátil:** o `build.sh` também gera `CapturePro-Portatil-1.0.0.zip`;
+**Versão portátil:** o `build.sh` também gera `CapturePro-Portatil-2.0.0.zip`;
 descompacte em qualquer pasta (ou pendrive) e abra `CapturePro.exe`.
 
 Requisitos: Windows 10 (versão 1809 ou mais nova) ou Windows 11, 64 bits.
@@ -33,8 +43,15 @@ antes; placas USB "UVC" funcionam com o driver do próprio Windows.
 
 1. Escolha a **placa de captura** no alto da janela (a última usada é lembrada).
 2. Clique em **DEFINIR ÁREA**, arraste a moldura verde sobre a imagem do exame
-   (cantos e bordas redimensionam; arrastar por dentro move) e clique em
-   **CONCLUIR ÁREA**. A área fica gravada, inclusive depois de fechar o programa.
+   (cantos e bordas redimensionam; arrastar por dentro move). Durante a edição
+   aparecem, no canto inferior esquerdo da prévia, duas opções:
+   - **SALVAR ÁREA** — confirma e grava a área (o mesmo que **CONCLUIR ÁREA**);
+   - **REMOVER SELEÇÃO** — apaga a área e volta a salvar a imagem inteira
+     (o mesmo que **CAPTURAR TELA INTEIRA**).
+
+   A área (ou a remoção) fica gravada, inclusive depois de fechar o programa.
+
+   ![Opções ao definir a área](docs/v2-definir-area.png)
 3. Clique em **SALVAR IMAGEM** ou aperte **F8**. Só o interior da moldura é salvo,
    na resolução real do vídeo, sem a moldura. O vídeo não é interrompido.
 
@@ -53,6 +70,8 @@ antes; placas USB "UVC" funcionam com o driver do próprio Windows.
 - **Motor de captura** – DirectShow (padrão, compatível com placas antigas) ou Media Foundation.
 - **Propriedades do driver** – abre a janela de configuração do próprio fabricante.
 - **CAPTURAR TELA INTEIRA** – remove o recorte (salva o quadro inteiro).
+- **SALVAR ÁREA / REMOVER SELEÇÃO** (2.0) – aparecem só durante DEFINIR ÁREA.
+- **Ícone "i"** (2.0, canto superior direito) – janela *Sobre o Capture Pro*.
 - **ESCOLHER PASTA / ABRIR PASTA** – pasta de destino (padrão: `Imagens\Capturas`).
 - **RESTAURAR AJUSTES** – volta brilho, contraste, saturação e nitidez a zero.
 - **Painel lateral** – ajustes (aparecem na prévia e na foto), resolução da foto
@@ -92,9 +111,12 @@ Configurações: `%APPDATA%\CapturePro\config.json` (apagar este arquivo restaur
 
 ## Download
 
-Os instaladores estão na pasta [`instaladores/v1.0.0`](instaladores/v1.0.0): baixe os dois arquivos `.exe`.
+- **Versão 2.0.0 (atual):** [`instaladores/v2.0.0`](instaladores/v2.0.0) — um único arquivo `.exe`.
+- **Versão 1.0.0:** [`instaladores/v1.0.0`](instaladores/v1.0.0) — dois arquivos `.exe`
+  (código-fonte original na branch `versao-1.0.0`).
 
-Como esta versão foi construída, passo a passo: [docs/COMO-FOI-FEITO.md](docs/COMO-FOI-FEITO.md).
+Como as versões foram construídas: [docs/COMO-FOI-FEITO.md](docs/COMO-FOI-FEITO.md) (1.0) e
+[docs/VERSAO-2.0.md](docs/VERSAO-2.0.md) (2.0 — alterações, arquivos modificados e testes).
 Especificação original: [docs/especificacao-original.txt](docs/especificacao-original.txt).
 
 ## Tecnologia
@@ -123,7 +145,7 @@ src/capturepro/processing.py     ajustes, recorte, redimensionamento
 src/capturepro/storage.py        gravação PNG/JPEG/BMP sequencial e segura
 src/capturepro/settings.py       configurações globais e por dispositivo
 src/capturepro/autostart.py      iniciar com o Windows
-src/capturepro/ui/               janela principal, prévia com moldura, tema
+src/capturepro/ui/               janela principal, prévia com moldura, tema, janela Sobre
 tests/                           testes automatizados (pytest)
 build/                           lançador C, montagem, instalador NSIS, build.sh
 CapturePro.sln / .pyproj         abre no Visual Studio (carga de trabalho Python)
@@ -140,10 +162,34 @@ python -m pytest tests          # testes
 ### Gerar executável e instalador
 
 Em Linux (Ubuntu 24.04) com `nsis`, `gcc-mingw-w64-x86-64` e Python 3.12:
-`./build/build.sh` → `dist/CapturePro/`, `dist/CapturePro-Setup-<versão>.exe` +
-`dist/CapturePro-Setup-<versão>-parte2.exe`, `dist/CapturePro-Portatil-<versão>.zip`.
+`./build/build.sh` → `dist/CapturePro/`, `dist/CapturePro-Setup-<versão>.exe` (instalador
+único), `dist/CapturePro-Portatil-<versão>.zip`.
 
 ## Testes realizados
+
+### Versão 2.0
+
+**Automatizados: 46 testes, todos aprovados** — os 35 da 1.0 (sem nenhuma alteração,
+nenhum passou a falhar) + 11 novos: opções ocultas fora do modo de área; aparecem ao
+definir a área e somem ao concluir/ESC; não deslocam nenhum botão; SALVAR ÁREA grava,
+recorta e sobrevive ao reiniciar; REMOVER SELEÇÃO volta à imagem inteira e a remoção
+sobrevive ao reiniciar; CAPTURAR TELA INTEIRA continua funcionando; janela Sobre abre,
+mostra o texto e fecha; configuração no formato 1.0 é lida sem perdas; instalador único.
+
+**Comparação visual com a 1.0** (mesma janela, pixel a pixel): as únicas diferenças são o
+ícone "i" (22 × 22 px) e o número da versão na barra de status.
+
+**Instalador (Windows simulado com Wine 9):** instalação a partir de um único arquivo
+numa pasta vazia; atualização sobre a 1.0 instalada — configurações e imagens
+conferidas por SHA-256 antes e depois (idênticas), cópia de segurança criada, versão
+2.0.0 registrada em *Aplicativos*, arquivos instalados idênticos à distribuição;
+desinstalação preservando imagens e configurações.
+
+**Pendente de validação externa (Windows real):** instalar/atualizar a 2.0 no
+computador do consultório e conferir a janela, as duas opções de área e o ícone Sobre
+com a placa USB 3.0 HDMI.
+
+### Versão 1.0
 
 **Automatizados (35 testes, todos aprovados)** – rodados com uma fonte de vídeo
 simulada, nas mesmas versões de bibliotecas da versão Windows:

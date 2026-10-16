@@ -1,3 +1,4 @@
+; [HISTÓRICO — usado somente na versão 1.0.0; a 2.0 usa instalador único]
 ; Capture Pro — parte 2 do instalador (componente de captura OpenCV).
 ; É executada automaticamente pelo CapturePro-Setup-<versão>.exe.
 Unicode true
